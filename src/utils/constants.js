@@ -1,4 +1,4 @@
-import { addNowPlayingMovies, addTrailerVideo } from "./movieSlice";
+import { addNowPlayingMovies, addPopularMovies, addTopRatedMovies, addTrailerVideo, addUpcomingMovies } from "./movieSlice";
 
 export const API_OPTIONS =  {
     method: 'GET',
@@ -9,7 +9,11 @@ export const API_OPTIONS =  {
   };
 
   export const YOUTUBE_PREFIX = "https://www.youtube.com/embed";
+  export const TMDB_IMG_URL = "https://image.tmdb.org/t/p/w500/";
 
   //actions
   export const ADD_NOW_PLAYING_MOVIES = addNowPlayingMovies;
+  export const ADD_POPULAR_MOVIES = addPopularMovies;
+  export const ADD_UPCOMING_MOVIES = addUpcomingMovies;
+  export const ADD_TOP_RATED_MOVIES = addTopRatedMovies;
   export const ADD_TRAILER_VIDEO = addTrailerVideo;

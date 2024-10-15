@@ -3,8 +3,7 @@ import PlayIcon from '../images/play-button-arrowhead.png';
 import InfoIcon from "../images/infoIcon.png"
 
 const VideoTitle = ({title, overview}) => {
-  return (
-    <div className='w-screen aspect-video px-12 pt-[20%] absolute bg-gradient-to-r from-black'>
+  return  <div className='w-screen aspect-video px-12 pt-[20%] absolute bg-gradient-to-r from-black'>
         <h1 className='text-5xl font-bold text-white'>{title}</h1>
         <p className='text-md py-6 w-1/4 text-white'>{overview}</p>
         <div className='flex gap-2'>
@@ -20,7 +19,7 @@ const VideoTitle = ({title, overview}) => {
             </button>
         </div>
     </div>
-  )
+  
 }
 
 export default VideoTitle
