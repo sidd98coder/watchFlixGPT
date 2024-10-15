@@ -19,13 +19,10 @@ export const signInWithEmailPassword = (email, password, onSuccessCb = null, onE
         .then((userCredential) => {
             // Signed up 
             const user = userCredential.user;
-            console.log(user);
             onSuccessCb?.();
             // ...
         })
         .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
             onErrorCb?.(error);
             // ..
         });
@@ -34,7 +31,6 @@ export const signUpWithEmailPassword = (name, email, password, onSuccessCb = nul
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Signed up 
-            const user = userCredential.user;
             updateProfile(auth.currentUser, {
                 displayName: name, photoURL: "https://static.diverseui.com/female-72.jpg"
               }).then(() => {
@@ -49,8 +45,6 @@ export const signUpWithEmailPassword = (name, email, password, onSuccessCb = nul
             // ...
         })
         .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
             onErrorCb?.(error);
             // ..
         });

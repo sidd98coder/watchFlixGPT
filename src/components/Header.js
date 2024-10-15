@@ -1,20 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { signout } from '../utils/auth';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from '../utils/firebaseConfig'
+import { addUser, removeUser } from '../utils/userSlice'
+import Logo from "../images/watchflix-logo.png"
+
 const Header = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store)=>store.user);
-  const handleSignOut = () => {
-    signout(() => {
-      navigate('/login');
+
+  useEffect(()=>{
+    //onAuthStateChanged returns a unsubscribe function when called
+    const unsbscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        const { uid, displayName, email, photoURL } = user;
+        dispatch(addUser({ uid, displayName, email, photoURL }));
+        navigate('/browse');
+        // ...
+      } else {
+        // User is signed out
+        // ...
+        dispatch(removeUser());
+        navigate('/login');
+      }
     });
+
+    return ()=>{
+      unsbscribe();
+    }
+  
+  }, []);
+
+  const handleSignOut = () => {
+    signout();
   }
   return (
-    <div className='absolute w-full h-20 bg-gradient-to-b from-black z-10 flex justify-between items-center px-2'>
+    <div className='absolute w-full h-20 bg-gradient-to-b from-black z-10 flex justify-between items-center px-12'>
       <div>
-        <div className='relative w-44 m-2 p-2 '>
-          <img src={`${process.env.PUBLIC_URL}/images/watchflix-logo.png`} alt="logo" />
+        <div className='relative w-44 my-2 py-2 '>
+          <img src={Logo} alt="logo" />
         </div>
       </div>
       {user && <div className='flex items-center gap-2'>

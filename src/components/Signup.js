@@ -2,21 +2,21 @@ import React, { useRef, useState } from 'react'
 import { validateFormFields } from '../utils/Validator'
 import Header from './Header'
 import Background from './Background'
-import { Link, useNavigate } from 'react-router-dom'
 import { signUpWithEmailPassword } from '../utils/auth'
 import { useDispatch } from 'react-redux'
 import { addUser } from '../utils/userSlice'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 
 
 const Signup = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState(null);
     const emailRef = useRef(null);
     const passRef = useRef(null);
     const usernameRef = useRef(null);
+    const navigate = useNavigate();
 
 
     const handleSignUp = () => {
@@ -31,7 +31,7 @@ const Signup = () => {
                     email: currentUser.email,
                     displayName: currentUser.displayName,
                     photoURL: currentUser.photoURL
-                }))
+                }));
                 navigate('/browse');
             },
             (e) => {
@@ -41,25 +41,10 @@ const Signup = () => {
         }
     }
 
-    // const signUp = (email, password) => {
-    //     createUserWithEmailAndPassword(auth, email, password)
-    //         .then((userCredential) => {
-    //             // Signed up 
-    //             const user = userCredential.user;
-    //             navigate('/browse');
-    //             // ...
-    //         })
-    //         .catch((error) => {
-    //             const errorCode = error.code;
-    //             const errorMessage = error.message;
-    //             setErrorMessage(errorMessage);
-    //             // ..
-    //         });
-    // }
 
     return (
         <div>
-            <Header />
+            {/* <Header /> */}
             <Background />
             <form onSubmit={(e) => e.preventDefault()} className='absolute w-1/3 p-4 bg-black px-20 py-10 mt-24 mx-auto right-0 left-0 flex flex-col text-white gap-1 rounded-md opacity-80'>
                 <h1 className='text-3xl font-bold mt-2 mb-4'>Sign Up</h1>

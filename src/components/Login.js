@@ -1,16 +1,15 @@
 import React, { useRef, useState } from 'react'
 import Header from './Header'
 import Background from './Background'
-import { Link, useNavigate } from 'react-router-dom'
 import { validateFormFields } from '../utils/Validator'
-import { auth } from '../utils/firebaseConfig';
 import { signInWithEmailPassword } from '../utils/auth'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Login = () => {
-    const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState(null);
     const emailRef = useRef(null);
     const passRef = useRef(null);
+    const navigate = useNavigate();
 
     const handleSignIn = () => {
         const msg = validateFormFields(emailRef.current.value, passRef.current.value);
@@ -18,30 +17,16 @@ const Login = () => {
 
         if (msg === 'OK') {
             //sign in
-            signInWithEmailPassword(emailRef.current.value, passRef.current.value, () => {
-                navigate('/browse');
-            },
+            signInWithEmailPassword(emailRef.current.value, passRef.current.value, null,
+                ()=>{
+                    navigate('/browse');
+                },
                 (e) => {
                     setErrorMessage(e.message);
                 });
         }
     }
 
-    // const signIn = (email, password) => {
-    //     signInWithEmailAndPassword(auth, email, password)
-    //         .then((userCredential) => {
-    //             // Signed up 
-    //             const user = userCredential.user;
-    //             navigate('/browse');
-    //             // ...
-    //         })
-    //         .catch((error) => {
-    //             const errorCode = error.code;
-    //             const errorMessage = error.message;
-    //             setErrorMessage(errorMessage);
-    //             // ..
-    //         });
-    // }
 
     return (
         <div>
